@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "966932503665",
+    "project_id": "inventarisfit-89915",
+    "storage_bucket": "inventarisfit-89915.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:966932503665:android:a8012b07340599d5590fd0",
+        "android_client_info": {
+          "package_name": "com.example.flutter_uilogin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaw-VFqXzdAfC_-JavlTuaYwfrHV4ggnA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:966932503665:android:490af4935ecf71c8590fd0",
+        "android_client_info": {
+          "package_name": "com.example.inventaris"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaw-VFqXzdAfC_-JavlTuaYwfrHV4ggnA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
