@@ -1,10 +1,11 @@
 import 'package:cuberto_bottom_bar/internal/internal.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_uilogin/presentation/screens/ProfileScreen.dart';
-import 'package:flutter_uilogin/presentation/screens/ReportScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_uilogin/presentation/screens/LabPage.dart';
+import 'package:flutter_uilogin/presentation/screens/ProfileScreen.dart';
+import 'package:flutter_uilogin/presentation/screens/ReportScreen.dart';
+import 'package:flutter_uilogin/presentation/screens/AttendanceScreen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Map<String, dynamic>> usersData = [];
-  Map<String, dynamic> loggedInUserData = {}; // Declare loggedInUserData
+  Map<String, dynamic> loggedInUserData = {};
 
   Map<String, int> userDataCounts = {
     'Dosen': 0,
@@ -129,7 +130,9 @@ class _HomePageState extends State<HomePage> {
                 ))
             : _currentPage == 1
                 ? Text('Reports')
-                : Text('Profile'),
+                : _currentPage == 2
+                    ? Text('Profile')
+                    : Text('Attendance'),
         actions: [
           Container(
             margin: EdgeInsets.only(right: 10.0),
@@ -155,23 +158,29 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Report(),
                 Profile(),
+                Attendance(),
               ],
             ),
       bottomNavigationBar: CubertoBottomBar(
         tabs: [
           TabData(
             iconData: Icons.home,
-            title: 'Home',
+            title: '•',
             tabColor: Colors.amber[900],
           ),
           TabData(
             iconData: Icons.file_open,
-            title: 'Reports',
+            title: '•',
           ),
           TabData(
             iconData: Icons.person,
-            title: 'Profile',
+            title: '•',
           ),
+          if (loggedInUserData['role'] == 'staff')
+            TabData(
+              iconData: Icons.access_alarm,
+              title: '•',
+            ),
         ],
         selectedTab: _currentPage,
         onTabChangedListener: (position, title, color) {
@@ -248,7 +257,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-
           GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
@@ -296,7 +304,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-
           GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
@@ -314,7 +321,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => LabPage(labType: content.labType),
+                        builder: (context) => LabPage(
+                          labType: content.labType,
+                          userRole: widget
+                              .loggedInUserData['role'], // Pass the user role
+                        ),
                       ),
                     );
                   },
@@ -324,12 +335,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(content.icon, size: _fontSize), // Set icon size
+                      Icon(content.icon, size: _fontSize),
                       Text(
                         content.title,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: _fontSize), // Set text font size
+                        style: TextStyle(fontSize: _fontSize),
                       ),
                     ],
                   ),

@@ -48,14 +48,14 @@ class _CubertoBottomBarState extends State<CubertoBottomBar> {
 class TabData {
   final IconData iconData;
   final String title;
-  final Color? tabColor; // Tab color
-  final Color? textColor; // Title text color
+  final Color? tabColor;
+  final Color? textColor;
 
   TabData({
     required this.iconData,
     required this.title,
     this.tabColor,
-    this.textColor, // Add title text color property
+    this.textColor,
   });
 }
 
